@@ -8,7 +8,7 @@
 
 **mORA** is an optimistic oracle protocol for Solana. It allows anyone to request real-world data to be brought on-chain (prices, outcomes, yes/no facts, etc.) using an optimistic model: an answer is accepted by default unless someone disputes it within a challenge window.
 
-Disputes are resolved by **veMORA holders** (value-locked arbiters), who vote to determine the canonical answer. The system is secured by economic bonds — proposers and disputers must stake `MORA` tokens, which are slashed if they act dishonestly.
+Disputes are resolved by **veMORA holders** (value-locked arbiters), who vote to determine the canonical answer. The system is secured by economic bonds ($MORA). **Note**: The "MORA" token is configurable; the protocol can be initialized with **any custom SPL token** (e.g., USDC, SOL, or a project-specific token) to power its bonding and voting ecosystem.
 
 ---
 
@@ -19,20 +19,26 @@ oo-core/
 ├── programs/
 │   └── oo-core/
 │       └── src/
-│           └── lib.rs       # Core Anchor program
+│           ├── instructions/  # Modular business logic
+│           ├── errors.rs      # Custom error codes
+│           ├── state.rs       # Account structures
+│           └── lib.rs         # Program entry point
 ├── tests/                   # TypeScript integration tests
 ├── Anchor.toml
 └── Cargo.toml
 ```
+
+For a detailed technical deep-dive into the mechanics and math, see:
+👉 **[PROTOCOL.md](PROTOCOL.md)**
 
 ### Core Components
 
 | Component | Description |
 |-----------|-------------|
 | **Assertion Lifecycle** | Request → Propose → Dispute → Resolve |
-| **MORA Token** | Native token used for bonds and rewards |
-| **veMORA (Vote-Escrowed MORA)** | MORA locked for voting power over disputes |
-| **VLA (Value Locked Arbitration)** | Dispute resolution layer powered by veMORA holders |
+| **System Token** | Any SPL token used for bonds and rewards (e.g., MORA) |
+| **veMORA** | Vote-Escrowed system tokens locked for voting power |
+| **VLA** | Dispute resolution layer powered by locked token holders |
 | **Global Config** | Admin-controlled protocol parameters |
 
 ---
@@ -131,16 +137,14 @@ anchor test
 | Network   | Address |
 |-----------|---------|
 | Localnet  | `E7TZEgFboKppM4V8yix6UEQrBh2WL2rDqbbn2JYxPnat` |
-| Devnet    | TBD |
-| Mainnet   | TBD |
 
 ---
 
 ## Roadmap
 
-### Phase 1 — Core Protocol (Current)
+### Phase 1 — Core Protocol (Complete)
 - [x] Global config initialization
-- [x] Assertion request with MORA bond + reward escrow
+- [x] Assertion request with token bond + reward escrow
 - [x] Optimistic proposal with bond validation
 - [x] Liveness window enforcement
 - [x] Auto-resolution (happy path)
@@ -148,16 +152,19 @@ anchor test
 - [x] veMORA locking (create / increase / unlock / refresh)
 - [x] Linear voting power model (slope-bias)
 
-### Phase 2 — Arbitration Layer (In Progress)
-- [ ] VLA round opening on dispute
-- [ ] veMORA commit-reveal voting
-- [ ] Vote tallying and canonical answer finalization
-- [ ] Bond slashing and arbiter reward distribution
-- [ ] VLA commit window enforcement
+### Phase 2 — Arbitration Layer (Complete)
+- [x] VLA round opening on dispute
+- [x] veMORA commit-reveal voting
+- [x] Vote tallying and canonical answer finalization
+- [x] Bond slashing and pro-rata distribution logic
+- [x] VLA commit window enforcement
+- [x] High-precision math ($10^{12}$ scale factor)
 
-### Phase 3 — Security & Hardening
-- [ ] Full audit of bond accounting
-- [ ] Edge case coverage (ties, no quorum, griefing)
+### Phase 3 — Security & Hardening (In Progress)
+- [x] Modular codebase refactor
+- [x] Quorum enforcement in VLA
+- [x] Bond accounting and pro-rata claim logic
+- [ ] Edge case coverage (ties, griefing)
 - [ ] Fuzz testing with Trident or Ackee
 - [ ] Emergency pause / admin controls
 - [ ] Upgraded program migration flow
