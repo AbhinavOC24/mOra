@@ -1,0 +1,2867 @@
+{
+  "address": "E7TZEgFboKppM4V8yix6UEQrBh2WL2rDqbbn2JYxPnat",
+  "metadata": {
+    "name": "oo_core",
+    "version": "0.1.0",
+    "spec": "0.1.0",
+    "description": "Created with Anchor"
+  },
+  "instructions": [
+    {
+      "name": "auto_resolve_assertion",
+      "discriminator": [
+        3,
+        204,
+        108,
+        87,
+        151,
+        151,
+        24,
+        20
+      ],
+      "accounts": [
+        {
+          "name": "assertion_request",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  97,
+                  115,
+                  115,
+                  101,
+                  114,
+                  116,
+                  105,
+                  111,
+                  110
+                ]
+              },
+              {
+                "kind": "arg",
+                "path": "assertion_id"
+              }
+            ]
+          }
+        },
+        {
+          "name": "assertion_escrow",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  97,
+                  115,
+                  115,
+                  101,
+                  114,
+                  116,
+                  105,
+                  111,
+                  110,
+                  95,
+                  101,
+                  115,
+                  99,
+                  114,
+                  111,
+                  119
+                ]
+              },
+              {
+                "kind": "arg",
+                "path": "assertion_id"
+              }
+            ]
+          }
+        },
+        {
+          "name": "proposer"
+        },
+        {
+          "name": "requester"
+        },
+        {
+          "name": "proposer_mora_ata",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "account",
+                "path": "proposer"
+              },
+              {
+                "kind": "account",
+                "path": "token_program"
+              },
+              {
+                "kind": "account",
+                "path": "mora_mint"
+              }
+            ],
+            "program": {
+              "kind": "const",
+              "value": [
+                140,
+                151,
+                37,
+                143,
+                78,
+                36,
+                137,
+                241,
+                187,
+                61,
+                16,
+                41,
+                20,
+                142,
+                13,
+                131,
+                11,
+                90,
+                19,
+                153,
+                218,
+                255,
+                16,
+                132,
+                4,
+                142,
+                123,
+                216,
+                219,
+                233,
+                248,
+                89
+              ]
+            }
+          }
+        },
+        {
+          "name": "requester_mora_ata",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "account",
+                "path": "requester"
+              },
+              {
+                "kind": "account",
+                "path": "token_program"
+              },
+              {
+                "kind": "account",
+                "path": "mora_mint"
+              }
+            ],
+            "program": {
+              "kind": "const",
+              "value": [
+                140,
+                151,
+                37,
+                143,
+                78,
+                36,
+                137,
+                241,
+                187,
+                61,
+                16,
+                41,
+                20,
+                142,
+                13,
+                131,
+                11,
+                90,
+                19,
+                153,
+                218,
+                255,
+                16,
+                132,
+                4,
+                142,
+                123,
+                216,
+                219,
+                233,
+                248,
+                89
+              ]
+            }
+          }
+        },
+        {
+          "name": "mora_mint"
+        },
+        {
+          "name": "token_program"
+        },
+        {
+          "name": "auto_resolver",
+          "signer": true
+        }
+      ],
+      "args": [
+        {
+          "name": "assertion_id",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "claim_arbiter_reward",
+      "discriminator": [
+        231,
+        109,
+        2,
+        148,
+        94,
+        40,
+        218,
+        117
+      ],
+      "accounts": [
+        {
+          "name": "voter",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "assertion_request",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  97,
+                  115,
+                  115,
+                  101,
+                  114,
+                  116,
+                  105,
+                  111,
+                  110
+                ]
+              },
+              {
+                "kind": "arg",
+                "path": "assertion_id"
+              }
+            ]
+          }
+        },
+        {
+          "name": "assertion_escrow",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  97,
+                  115,
+                  115,
+                  101,
+                  114,
+                  116,
+                  105,
+                  111,
+                  110,
+                  95,
+                  101,
+                  115,
+                  99,
+                  114,
+                  111,
+                  119
+                ]
+              },
+              {
+                "kind": "arg",
+                "path": "assertion_id"
+              }
+            ]
+          }
+        },
+        {
+          "name": "voter_mora_ata",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "account",
+                "path": "voter"
+              },
+              {
+                "kind": "account",
+                "path": "token_program"
+              },
+              {
+                "kind": "account",
+                "path": "mora_mint"
+              }
+            ],
+            "program": {
+              "kind": "const",
+              "value": [
+                140,
+                151,
+                37,
+                143,
+                78,
+                36,
+                137,
+                241,
+                187,
+                61,
+                16,
+                41,
+                20,
+                142,
+                13,
+                131,
+                11,
+                90,
+                19,
+                153,
+                218,
+                255,
+                16,
+                132,
+                4,
+                142,
+                123,
+                216,
+                219,
+                233,
+                248,
+                89
+              ]
+            }
+          }
+        },
+        {
+          "name": "vla_round"
+        },
+        {
+          "name": "vote_record"
+        },
+        {
+          "name": "mora_mint"
+        },
+        {
+          "name": "token_program"
+        }
+      ],
+      "args": [
+        {
+          "name": "assertion_id",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "commit_vote",
+      "discriminator": [
+        134,
+        97,
+        90,
+        126,
+        91,
+        66,
+        16,
+        26
+      ],
+      "accounts": [
+        {
+          "name": "voter",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "vote_record",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  118,
+                  111,
+                  116,
+                  101,
+                  95,
+                  114,
+                  101,
+                  99,
+                  111,
+                  114,
+                  100
+                ]
+              },
+              {
+                "kind": "arg",
+                "path": "assertion_id"
+              },
+              {
+                "kind": "account",
+                "path": "voter"
+              }
+            ]
+          }
+        },
+        {
+          "name": "vla_round",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  118,
+                  108,
+                  97,
+                  95,
+                  114,
+                  111,
+                  117,
+                  110,
+                  100
+                ]
+              },
+              {
+                "kind": "arg",
+                "path": "assertion_id"
+              }
+            ]
+          }
+        },
+        {
+          "name": "lock_position",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  108,
+                  111,
+                  99,
+                  107,
+                  95,
+                  112,
+                  111,
+                  115,
+                  105,
+                  116,
+                  105,
+                  111,
+                  110
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "voter"
+              }
+            ]
+          }
+        },
+        {
+          "name": "locking_config",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  108,
+                  111,
+                  99,
+                  107,
+                  105,
+                  110,
+                  103,
+                  95,
+                  99,
+                  111,
+                  110,
+                  102,
+                  105,
+                  103
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "global_config",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  103,
+                  108,
+                  111,
+                  98,
+                  97,
+                  108
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "assertion_id",
+          "type": "u64"
+        },
+        {
+          "name": "commit_hash",
+          "type": {
+            "array": [
+              "u8",
+              32
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "create_lock",
+      "discriminator": [
+        171,
+        216,
+        92,
+        167,
+        165,
+        8,
+        153,
+        90
+      ],
+      "accounts": [
+        {
+          "name": "owner",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "locking_config",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  108,
+                  111,
+                  99,
+                  107,
+                  105,
+                  110,
+                  103,
+                  95,
+                  99,
+                  111,
+                  110,
+                  102,
+                  105,
+                  103
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "lock_position",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  108,
+                  111,
+                  99,
+                  107,
+                  95,
+                  112,
+                  111,
+                  115,
+                  105,
+                  116,
+                  105,
+                  111,
+                  110
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "owner"
+              }
+            ]
+          }
+        },
+        {
+          "name": "lock_escrow",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  108,
+                  111,
+                  99,
+                  107,
+                  95,
+                  101,
+                  115,
+                  99,
+                  114,
+                  111,
+                  119
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "owner"
+              }
+            ]
+          }
+        },
+        {
+          "name": "owner_mora_ata",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "account",
+                "path": "owner"
+              },
+              {
+                "kind": "account",
+                "path": "token_program"
+              },
+              {
+                "kind": "account",
+                "path": "mora_mint"
+              }
+            ],
+            "program": {
+              "kind": "const",
+              "value": [
+                140,
+                151,
+                37,
+                143,
+                78,
+                36,
+                137,
+                241,
+                187,
+                61,
+                16,
+                41,
+                20,
+                142,
+                13,
+                131,
+                11,
+                90,
+                19,
+                153,
+                218,
+                255,
+                16,
+                132,
+                4,
+                142,
+                123,
+                216,
+                219,
+                233,
+                248,
+                89
+              ]
+            }
+          }
+        },
+        {
+          "name": "mora_mint"
+        },
+        {
+          "name": "token_program"
+        },
+        {
+          "name": "associated_token_program",
+          "address": "ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL"
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "amount",
+          "type": "u64"
+        },
+        {
+          "name": "lock_duration",
+          "type": "i64"
+        }
+      ]
+    },
+    {
+      "name": "dispute_assertion",
+      "discriminator": [
+        27,
+        132,
+        244,
+        216,
+        101,
+        77,
+        138,
+        55
+      ],
+      "accounts": [
+        {
+          "name": "assertion_request",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  97,
+                  115,
+                  115,
+                  101,
+                  114,
+                  116,
+                  105,
+                  111,
+                  110
+                ]
+              },
+              {
+                "kind": "arg",
+                "path": "assertion_id"
+              }
+            ]
+          }
+        },
+        {
+          "name": "assertion_escrow",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  97,
+                  115,
+                  115,
+                  101,
+                  114,
+                  116,
+                  105,
+                  111,
+                  110,
+                  95,
+                  101,
+                  115,
+                  99,
+                  114,
+                  111,
+                  119
+                ]
+              },
+              {
+                "kind": "arg",
+                "path": "assertion_id"
+              }
+            ]
+          }
+        },
+        {
+          "name": "disputer_mora_ata",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "account",
+                "path": "disputer"
+              },
+              {
+                "kind": "account",
+                "path": "token_program"
+              },
+              {
+                "kind": "account",
+                "path": "mora_mint"
+              }
+            ],
+            "program": {
+              "kind": "const",
+              "value": [
+                140,
+                151,
+                37,
+                143,
+                78,
+                36,
+                137,
+                241,
+                187,
+                61,
+                16,
+                41,
+                20,
+                142,
+                13,
+                131,
+                11,
+                90,
+                19,
+                153,
+                218,
+                255,
+                16,
+                132,
+                4,
+                142,
+                123,
+                216,
+                219,
+                233,
+                248,
+                89
+              ]
+            }
+          }
+        },
+        {
+          "name": "mora_mint"
+        },
+        {
+          "name": "token_program"
+        },
+        {
+          "name": "disputer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "vla_round",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  118,
+                  108,
+                  97,
+                  95,
+                  114,
+                  111,
+                  117,
+                  110,
+                  100
+                ]
+              },
+              {
+                "kind": "arg",
+                "path": "assertion_id"
+              }
+            ]
+          }
+        },
+        {
+          "name": "global_config",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  103,
+                  108,
+                  111,
+                  98,
+                  97,
+                  108
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "assertion_id",
+          "type": "u64"
+        },
+        {
+          "name": "dispute_bond",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "finalize_vla_round",
+      "discriminator": [
+        200,
+        92,
+        199,
+        19,
+        51,
+        107,
+        50,
+        9
+      ],
+      "accounts": [
+        {
+          "name": "assertion_request",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  97,
+                  115,
+                  115,
+                  101,
+                  114,
+                  116,
+                  105,
+                  111,
+                  110
+                ]
+              },
+              {
+                "kind": "arg",
+                "path": "assertion_id"
+              }
+            ]
+          }
+        },
+        {
+          "name": "assertion_escrow",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  97,
+                  115,
+                  115,
+                  101,
+                  114,
+                  116,
+                  105,
+                  111,
+                  110,
+                  95,
+                  101,
+                  115,
+                  99,
+                  114,
+                  111,
+                  119
+                ]
+              },
+              {
+                "kind": "arg",
+                "path": "assertion_id"
+              }
+            ]
+          }
+        },
+        {
+          "name": "proposer"
+        },
+        {
+          "name": "disputer"
+        },
+        {
+          "name": "requester"
+        },
+        {
+          "name": "proposer_mora_ata",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "account",
+                "path": "proposer"
+              },
+              {
+                "kind": "account",
+                "path": "token_program"
+              },
+              {
+                "kind": "account",
+                "path": "mora_mint"
+              }
+            ],
+            "program": {
+              "kind": "const",
+              "value": [
+                140,
+                151,
+                37,
+                143,
+                78,
+                36,
+                137,
+                241,
+                187,
+                61,
+                16,
+                41,
+                20,
+                142,
+                13,
+                131,
+                11,
+                90,
+                19,
+                153,
+                218,
+                255,
+                16,
+                132,
+                4,
+                142,
+                123,
+                216,
+                219,
+                233,
+                248,
+                89
+              ]
+            }
+          }
+        },
+        {
+          "name": "disputer_mora_ata",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "account",
+                "path": "disputer"
+              },
+              {
+                "kind": "account",
+                "path": "token_program"
+              },
+              {
+                "kind": "account",
+                "path": "mora_mint"
+              }
+            ],
+            "program": {
+              "kind": "const",
+              "value": [
+                140,
+                151,
+                37,
+                143,
+                78,
+                36,
+                137,
+                241,
+                187,
+                61,
+                16,
+                41,
+                20,
+                142,
+                13,
+                131,
+                11,
+                90,
+                19,
+                153,
+                218,
+                255,
+                16,
+                132,
+                4,
+                142,
+                123,
+                216,
+                219,
+                233,
+                248,
+                89
+              ]
+            }
+          }
+        },
+        {
+          "name": "requester_mora_ata",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "account",
+                "path": "requester"
+              },
+              {
+                "kind": "account",
+                "path": "token_program"
+              },
+              {
+                "kind": "account",
+                "path": "mora_mint"
+              }
+            ],
+            "program": {
+              "kind": "const",
+              "value": [
+                140,
+                151,
+                37,
+                143,
+                78,
+                36,
+                137,
+                241,
+                187,
+                61,
+                16,
+                41,
+                20,
+                142,
+                13,
+                131,
+                11,
+                90,
+                19,
+                153,
+                218,
+                255,
+                16,
+                132,
+                4,
+                142,
+                123,
+                216,
+                219,
+                233,
+                248,
+                89
+              ]
+            }
+          }
+        },
+        {
+          "name": "vla_round",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  118,
+                  108,
+                  97,
+                  95,
+                  114,
+                  111,
+                  117,
+                  110,
+                  100
+                ]
+              },
+              {
+                "kind": "arg",
+                "path": "assertion_id"
+              }
+            ]
+          }
+        },
+        {
+          "name": "mora_mint"
+        },
+        {
+          "name": "global_config",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  103,
+                  108,
+                  111,
+                  98,
+                  97,
+                  108
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "token_program"
+        }
+      ],
+      "args": [
+        {
+          "name": "assertion_id",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "increase_lock",
+      "discriminator": [
+        144,
+        30,
+        154,
+        214,
+        191,
+        69,
+        95,
+        94
+      ],
+      "accounts": [
+        {
+          "name": "owner",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "locking_config",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  108,
+                  111,
+                  99,
+                  107,
+                  105,
+                  110,
+                  103,
+                  95,
+                  99,
+                  111,
+                  110,
+                  102,
+                  105,
+                  103
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "lock_position",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  108,
+                  111,
+                  99,
+                  107,
+                  95,
+                  112,
+                  111,
+                  115,
+                  105,
+                  116,
+                  105,
+                  111,
+                  110
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "owner"
+              }
+            ]
+          }
+        },
+        {
+          "name": "lock_escrow",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  108,
+                  111,
+                  99,
+                  107,
+                  95,
+                  101,
+                  115,
+                  99,
+                  114,
+                  111,
+                  119
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "owner"
+              }
+            ]
+          }
+        },
+        {
+          "name": "owner_mora_ata",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "account",
+                "path": "owner"
+              },
+              {
+                "kind": "account",
+                "path": "token_program"
+              },
+              {
+                "kind": "account",
+                "path": "mora_mint"
+              }
+            ],
+            "program": {
+              "kind": "const",
+              "value": [
+                140,
+                151,
+                37,
+                143,
+                78,
+                36,
+                137,
+                241,
+                187,
+                61,
+                16,
+                41,
+                20,
+                142,
+                13,
+                131,
+                11,
+                90,
+                19,
+                153,
+                218,
+                255,
+                16,
+                132,
+                4,
+                142,
+                123,
+                216,
+                219,
+                233,
+                248,
+                89
+              ]
+            }
+          }
+        },
+        {
+          "name": "mora_mint"
+        },
+        {
+          "name": "token_program"
+        },
+        {
+          "name": "associated_token_program",
+          "address": "ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL"
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "additional_amount",
+          "type": "u64"
+        },
+        {
+          "name": "lock_duration",
+          "type": "i64"
+        }
+      ]
+    },
+    {
+      "name": "initialize_global_config",
+      "discriminator": [
+        113,
+        216,
+        122,
+        131,
+        225,
+        209,
+        22,
+        55
+      ],
+      "accounts": [
+        {
+          "name": "global_config",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  103,
+                  108,
+                  111,
+                  98,
+                  97,
+                  108
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "admin",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "min_proposer_bond",
+          "type": "u64"
+        },
+        {
+          "name": "arbiter_reward_bps",
+          "type": "u16"
+        },
+        {
+          "name": "burn_vault",
+          "type": "pubkey"
+        },
+        {
+          "name": "min_arbiter_voting_power",
+          "type": "u128"
+        },
+        {
+          "name": "vla_commit_window",
+          "type": "i64"
+        },
+        {
+          "name": "vla_enabled",
+          "type": "bool"
+        }
+      ]
+    },
+    {
+      "name": "initialize_locking_config",
+      "discriminator": [
+        31,
+        15,
+        228,
+        129,
+        123,
+        241,
+        232,
+        205
+      ],
+      "accounts": [
+        {
+          "name": "admin",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "locking_config",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  108,
+                  111,
+                  99,
+                  107,
+                  105,
+                  110,
+                  103,
+                  95,
+                  99,
+                  111,
+                  110,
+                  102,
+                  105,
+                  103
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "mora_mint",
+          "type": "pubkey"
+        },
+        {
+          "name": "min_lock_duration",
+          "type": "i64"
+        },
+        {
+          "name": "max_lock_duration",
+          "type": "i64"
+        }
+      ]
+    },
+    {
+      "name": "propose_assertion",
+      "discriminator": [
+        127,
+        234,
+        61,
+        76,
+        145,
+        232,
+        137,
+        89
+      ],
+      "accounts": [
+        {
+          "name": "assertion_request",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  97,
+                  115,
+                  115,
+                  101,
+                  114,
+                  116,
+                  105,
+                  111,
+                  110
+                ]
+              },
+              {
+                "kind": "arg",
+                "path": "assertion_id"
+              }
+            ]
+          }
+        },
+        {
+          "name": "global_config",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  103,
+                  108,
+                  111,
+                  98,
+                  97,
+                  108
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "proposer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "assertion_escrow",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  97,
+                  115,
+                  115,
+                  101,
+                  114,
+                  116,
+                  105,
+                  111,
+                  110,
+                  95,
+                  101,
+                  115,
+                  99,
+                  114,
+                  111,
+                  119
+                ]
+              },
+              {
+                "kind": "arg",
+                "path": "assertion_id"
+              }
+            ]
+          }
+        },
+        {
+          "name": "proposer_mora_ata",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "account",
+                "path": "proposer"
+              },
+              {
+                "kind": "account",
+                "path": "token_program"
+              },
+              {
+                "kind": "account",
+                "path": "mora_mint"
+              }
+            ],
+            "program": {
+              "kind": "const",
+              "value": [
+                140,
+                151,
+                37,
+                143,
+                78,
+                36,
+                137,
+                241,
+                187,
+                61,
+                16,
+                41,
+                20,
+                142,
+                13,
+                131,
+                11,
+                90,
+                19,
+                153,
+                218,
+                255,
+                16,
+                132,
+                4,
+                142,
+                123,
+                216,
+                219,
+                233,
+                248,
+                89
+              ]
+            }
+          }
+        },
+        {
+          "name": "token_program"
+        },
+        {
+          "name": "mora_mint"
+        },
+        {
+          "name": "associated_token_program",
+          "address": "ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL"
+        }
+      ],
+      "args": [
+        {
+          "name": "proposed_answer",
+          "type": "string"
+        },
+        {
+          "name": "proposer_bond_amount",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "refresh_voting_power",
+      "discriminator": [
+        209,
+        43,
+        216,
+        144,
+        28,
+        161,
+        218,
+        159
+      ],
+      "accounts": [
+        {
+          "name": "locking_config",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  108,
+                  111,
+                  99,
+                  107,
+                  105,
+                  110,
+                  103,
+                  95,
+                  99,
+                  111,
+                  110,
+                  102,
+                  105,
+                  103
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "lock_position",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  108,
+                  111,
+                  99,
+                  107,
+                  95,
+                  112,
+                  111,
+                  115,
+                  105,
+                  116,
+                  105,
+                  111,
+                  110
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "lock_position.owner",
+                "account": "LockPosition"
+              }
+            ]
+          }
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "request_assertion",
+      "discriminator": [
+        19,
+        8,
+        146,
+        147,
+        155,
+        85,
+        131,
+        160
+      ],
+      "accounts": [
+        {
+          "name": "requester",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "assertion_request",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  97,
+                  115,
+                  115,
+                  101,
+                  114,
+                  116,
+                  105,
+                  111,
+                  110
+                ]
+              },
+              {
+                "kind": "arg",
+                "path": "assertion_id"
+              }
+            ]
+          }
+        },
+        {
+          "name": "assertion_escrow",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  97,
+                  115,
+                  115,
+                  101,
+                  114,
+                  116,
+                  105,
+                  111,
+                  110,
+                  95,
+                  101,
+                  115,
+                  99,
+                  114,
+                  111,
+                  119
+                ]
+              },
+              {
+                "kind": "arg",
+                "path": "assertion_id"
+              }
+            ]
+          }
+        },
+        {
+          "name": "requester_mora_ata",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "account",
+                "path": "requester"
+              },
+              {
+                "kind": "account",
+                "path": "token_program"
+              },
+              {
+                "kind": "account",
+                "path": "mora_mint"
+              }
+            ],
+            "program": {
+              "kind": "const",
+              "value": [
+                140,
+                151,
+                37,
+                143,
+                78,
+                36,
+                137,
+                241,
+                187,
+                61,
+                16,
+                41,
+                20,
+                142,
+                13,
+                131,
+                11,
+                90,
+                19,
+                153,
+                218,
+                255,
+                16,
+                132,
+                4,
+                142,
+                123,
+                216,
+                219,
+                233,
+                248,
+                89
+              ]
+            }
+          }
+        },
+        {
+          "name": "mora_mint"
+        },
+        {
+          "name": "token_program"
+        },
+        {
+          "name": "associated_token_program",
+          "address": "ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL"
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "assertion_id",
+          "type": "u64"
+        },
+        {
+          "name": "question",
+          "type": "string"
+        },
+        {
+          "name": "answer_type",
+          "type": {
+            "defined": {
+              "name": "AnswerType"
+            }
+          }
+        },
+        {
+          "name": "liveness_period",
+          "type": "i64"
+        },
+        {
+          "name": "dispute_period",
+          "type": "i64"
+        },
+        {
+          "name": "metadata",
+          "type": {
+            "option": "string"
+          }
+        },
+        {
+          "name": "requester_bond_amount",
+          "type": "u64"
+        },
+        {
+          "name": "reward_amount",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "reveal_vote",
+      "discriminator": [
+        100,
+        157,
+        139,
+        17,
+        186,
+        75,
+        185,
+        149
+      ],
+      "accounts": [
+        {
+          "name": "voter",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "vote_record",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  118,
+                  111,
+                  116,
+                  101,
+                  95,
+                  114,
+                  101,
+                  99,
+                  111,
+                  114,
+                  100
+                ]
+              },
+              {
+                "kind": "arg",
+                "path": "assertion_id"
+              },
+              {
+                "kind": "account",
+                "path": "voter"
+              }
+            ]
+          }
+        },
+        {
+          "name": "vla_round",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  118,
+                  108,
+                  97,
+                  95,
+                  114,
+                  111,
+                  117,
+                  110,
+                  100
+                ]
+              },
+              {
+                "kind": "arg",
+                "path": "assertion_id"
+              }
+            ]
+          }
+        }
+      ],
+      "args": [
+        {
+          "name": "assertion_id",
+          "type": "u64"
+        },
+        {
+          "name": "side",
+          "type": {
+            "defined": {
+              "name": "VlaSide"
+            }
+          }
+        },
+        {
+          "name": "salt",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "unlock",
+      "discriminator": [
+        101,
+        155,
+        40,
+        21,
+        158,
+        189,
+        56,
+        203
+      ],
+      "accounts": [
+        {
+          "name": "owner",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "locking_config",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  108,
+                  111,
+                  99,
+                  107,
+                  105,
+                  110,
+                  103,
+                  95,
+                  99,
+                  111,
+                  110,
+                  102,
+                  105,
+                  103
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "lock_position",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  108,
+                  111,
+                  99,
+                  107,
+                  95,
+                  112,
+                  111,
+                  115,
+                  105,
+                  116,
+                  105,
+                  111,
+                  110
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "owner"
+              }
+            ]
+          }
+        },
+        {
+          "name": "lock_escrow",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  108,
+                  111,
+                  99,
+                  107,
+                  95,
+                  101,
+                  115,
+                  99,
+                  114,
+                  111,
+                  119
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "owner"
+              }
+            ]
+          }
+        },
+        {
+          "name": "owner_mora_ata",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "account",
+                "path": "owner"
+              },
+              {
+                "kind": "account",
+                "path": "token_program"
+              },
+              {
+                "kind": "account",
+                "path": "mora_mint"
+              }
+            ],
+            "program": {
+              "kind": "const",
+              "value": [
+                140,
+                151,
+                37,
+                143,
+                78,
+                36,
+                137,
+                241,
+                187,
+                61,
+                16,
+                41,
+                20,
+                142,
+                13,
+                131,
+                11,
+                90,
+                19,
+                153,
+                218,
+                255,
+                16,
+                132,
+                4,
+                142,
+                123,
+                216,
+                219,
+                233,
+                248,
+                89
+              ]
+            }
+          }
+        },
+        {
+          "name": "mora_mint"
+        },
+        {
+          "name": "token_program"
+        },
+        {
+          "name": "associated_token_program",
+          "address": "ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL"
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": []
+    }
+  ],
+  "accounts": [
+    {
+      "name": "AssertionRequest",
+      "discriminator": [
+        78,
+        5,
+        239,
+        52,
+        56,
+        243,
+        160,
+        181
+      ]
+    },
+    {
+      "name": "Global",
+      "discriminator": [
+        167,
+        232,
+        232,
+        177,
+        200,
+        108,
+        114,
+        127
+      ]
+    },
+    {
+      "name": "LockPosition",
+      "discriminator": [
+        95,
+        235,
+        144,
+        78,
+        23,
+        171,
+        45,
+        9
+      ]
+    },
+    {
+      "name": "LockingConfig",
+      "discriminator": [
+        247,
+        62,
+        86,
+        49,
+        45,
+        158,
+        255,
+        112
+      ]
+    },
+    {
+      "name": "VlaRound",
+      "discriminator": [
+        189,
+        51,
+        221,
+        150,
+        100,
+        101,
+        182,
+        98
+      ]
+    },
+    {
+      "name": "VoteRecord",
+      "discriminator": [
+        112,
+        9,
+        123,
+        165,
+        234,
+        9,
+        157,
+        167
+      ]
+    }
+  ],
+  "errors": [
+    {
+      "code": 6000,
+      "name": "TooLateToDispute",
+      "msg": "Dispute window over"
+    },
+    {
+      "code": 6001,
+      "name": "InvalidAssertionState",
+      "msg": "Invalid assertion lifecycle state for this action"
+    },
+    {
+      "code": 6002,
+      "name": "RequestTooEarly",
+      "msg": "Cannot resolve this request yet"
+    },
+    {
+      "code": 6003,
+      "name": "ProposalTooLate",
+      "msg": "Proposal submitted after liveness window ended"
+    },
+    {
+      "code": 6004,
+      "name": "QuestionTooLong",
+      "msg": "Question too long"
+    },
+    {
+      "code": 6005,
+      "name": "InvalidBondAmount",
+      "msg": "Invalid bond amount"
+    },
+    {
+      "code": 6006,
+      "name": "InvalidDisputePeriod",
+      "msg": "Dispute period out of range"
+    },
+    {
+      "code": 6007,
+      "name": "AlreadyProposed",
+      "msg": "This request already has a proposed answer"
+    },
+    {
+      "code": 6008,
+      "name": "EmptyAnswerProposed",
+      "msg": "Cannot propose an empty answer"
+    },
+    {
+      "code": 6009,
+      "name": "AnswerTypeMismatch",
+      "msg": "Invalid answer for selected AnswerType"
+    },
+    {
+      "code": 6010,
+      "name": "NoProposerToResolve",
+      "msg": "Cannot resolve without a proposer"
+    },
+    {
+      "code": 6011,
+      "name": "RequesterCannotPropose",
+      "msg": "Requester cannot act as proposer on their own assertion"
+    },
+    {
+      "code": 6012,
+      "name": "AssertionIsDisputed",
+      "msg": "Cannot Resolve when the assertion is disputed"
+    },
+    {
+      "code": 6013,
+      "name": "VlaDisabled",
+      "msg": "VLA is not enabled"
+    },
+    {
+      "code": 6014,
+      "name": "InvalidVlaPhase",
+      "msg": "VLA round is not in the correct phase"
+    },
+    {
+      "code": 6015,
+      "name": "InsufficientVotingPower",
+      "msg": "Voting power too low to participate in VLA"
+    },
+    {
+      "code": 6016,
+      "name": "CommitHashMismatch",
+      "msg": "Commit hash mismatch"
+    },
+    {
+      "code": 6017,
+      "name": "VlaRoundAlreadyExists",
+      "msg": "VLA round already exists"
+    }
+  ],
+  "types": [
+    {
+      "name": "AnswerType",
+      "type": {
+        "kind": "enum",
+        "variants": [
+          {
+            "name": "YesNo"
+          },
+          {
+            "name": "Number"
+          },
+          {
+            "name": "String"
+          }
+        ]
+      }
+    },
+    {
+      "name": "AnswerValue",
+      "type": {
+        "kind": "enum",
+        "variants": [
+          {
+            "name": "YesNo",
+            "fields": [
+              "bool"
+            ]
+          },
+          {
+            "name": "Number",
+            "fields": [
+              "i64"
+            ]
+          },
+          {
+            "name": "String",
+            "fields": [
+              "string"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "AssertionRequest",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "assertion_id",
+            "type": "u64"
+          },
+          {
+            "name": "requester",
+            "type": "pubkey"
+          },
+          {
+            "name": "question",
+            "type": "string"
+          },
+          {
+            "name": "requester_bond_amount",
+            "type": "u64"
+          },
+          {
+            "name": "reward_amount",
+            "type": "u64"
+          },
+          {
+            "name": "answer_type",
+            "type": {
+              "defined": {
+                "name": "AnswerType"
+              }
+            }
+          },
+          {
+            "name": "liveness_period",
+            "type": "i64"
+          },
+          {
+            "name": "dispute_period",
+            "type": "i64"
+          },
+          {
+            "name": "status",
+            "type": {
+              "defined": {
+                "name": "AssertionStatus"
+              }
+            }
+          },
+          {
+            "name": "requested_at",
+            "type": "i64"
+          },
+          {
+            "name": "resolved_at",
+            "type": {
+              "option": "i64"
+            }
+          },
+          {
+            "name": "proposer",
+            "type": {
+              "option": "pubkey"
+            }
+          },
+          {
+            "name": "proposed_at",
+            "type": {
+              "option": "i64"
+            }
+          },
+          {
+            "name": "proposer_bond",
+            "type": {
+              "option": "u64"
+            }
+          },
+          {
+            "name": "disputer",
+            "type": {
+              "option": "pubkey"
+            }
+          },
+          {
+            "name": "disputer_bond",
+            "type": {
+              "option": "u64"
+            }
+          },
+          {
+            "name": "proposed_answer",
+            "type": {
+              "option": {
+                "defined": {
+                  "name": "AnswerValue"
+                }
+              }
+            }
+          },
+          {
+            "name": "final_answer",
+            "type": {
+              "option": {
+                "defined": {
+                  "name": "AnswerValue"
+                }
+              }
+            }
+          },
+          {
+            "name": "metadata",
+            "type": {
+              "option": "string"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "AssertionStatus",
+      "type": {
+        "kind": "enum",
+        "variants": [
+          {
+            "name": "Requested"
+          },
+          {
+            "name": "Proposed"
+          },
+          {
+            "name": "Disputed"
+          },
+          {
+            "name": "Resolved"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Global",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "admin",
+            "type": "pubkey"
+          },
+          {
+            "name": "min_proposer_bond",
+            "type": "u64"
+          },
+          {
+            "name": "arbiter_reward_bps",
+            "type": "u16"
+          },
+          {
+            "name": "burn_vault",
+            "type": "pubkey"
+          },
+          {
+            "name": "min_arbiter_voting_power",
+            "type": "u128"
+          },
+          {
+            "name": "vla_commit_window",
+            "type": "i64"
+          },
+          {
+            "name": "vla_enabled",
+            "type": "bool"
+          },
+          {
+            "name": "quorum",
+            "type": "u128"
+          }
+        ]
+      }
+    },
+    {
+      "name": "LockPosition",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "owner",
+            "type": "pubkey"
+          },
+          {
+            "name": "amount_locked",
+            "type": "u64"
+          },
+          {
+            "name": "lock_start",
+            "type": "i64"
+          },
+          {
+            "name": "lock_end",
+            "type": "i64"
+          },
+          {
+            "name": "slope",
+            "type": "u128"
+          },
+          {
+            "name": "bias",
+            "type": "u128"
+          },
+          {
+            "name": "voting_power",
+            "type": "u128"
+          }
+        ]
+      }
+    },
+    {
+      "name": "LockingConfig",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "admin",
+            "type": "pubkey"
+          },
+          {
+            "name": "mora_mint",
+            "type": "pubkey"
+          },
+          {
+            "name": "min_lock_duration",
+            "type": "i64"
+          },
+          {
+            "name": "max_lock_duration",
+            "type": "i64"
+          },
+          {
+            "name": "total_slope",
+            "type": "u128"
+          },
+          {
+            "name": "total_bias",
+            "type": "u128"
+          },
+          {
+            "name": "last_update_ts",
+            "type": "i64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "VlaRound",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "assertion_id",
+            "type": "u64"
+          },
+          {
+            "name": "opened_at",
+            "type": "i64"
+          },
+          {
+            "name": "commit_ends_at",
+            "type": "i64"
+          },
+          {
+            "name": "reveal_ends_at",
+            "type": "i64"
+          },
+          {
+            "name": "status",
+            "type": {
+              "defined": {
+                "name": "VlaRoundStatus"
+              }
+            }
+          },
+          {
+            "name": "total_power_disputer",
+            "type": "u128"
+          },
+          {
+            "name": "total_power_proposer",
+            "type": "u128"
+          },
+          {
+            "name": "winning_side",
+            "type": {
+              "option": {
+                "defined": {
+                  "name": "VlaSide"
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "VlaRoundStatus",
+      "type": {
+        "kind": "enum",
+        "variants": [
+          {
+            "name": "CommitPhase"
+          },
+          {
+            "name": "RevealPhase"
+          },
+          {
+            "name": "Finalized"
+          }
+        ]
+      }
+    },
+    {
+      "name": "VlaSide",
+      "type": {
+        "kind": "enum",
+        "variants": [
+          {
+            "name": "Proposer"
+          },
+          {
+            "name": "Disputer"
+          }
+        ]
+      }
+    },
+    {
+      "name": "VoteRecord",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "voter",
+            "type": "pubkey"
+          },
+          {
+            "name": "assertion_id",
+            "type": "u64"
+          },
+          {
+            "name": "commit_hash",
+            "type": {
+              "array": [
+                "u8",
+                32
+              ]
+            }
+          },
+          {
+            "name": "revealed",
+            "type": "bool"
+          },
+          {
+            "name": "side",
+            "type": {
+              "option": {
+                "defined": {
+                  "name": "VlaSide"
+                }
+              }
+            }
+          },
+          {
+            "name": "voting_power",
+            "type": "u128"
+          },
+          {
+            "name": "reward_claimed",
+            "type": "bool"
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,21 +1,83 @@
 import { useState } from "react";
 import { useWallet } from "../contexts/WalletContext";
+import { getAssertionPda, getGlobalPda, PROGRAM_ID, MORA_MINT } from "../lib/protocol";
+import * as anchor from "@coral-xyz/anchor";
+import { PublicKey, SystemProgram } from "@solana/web3.js";
+import { TOKEN_PROGRAM_ID, getAssociatedTokenAddressSync, ASSOCIATED_TOKEN_PROGRAM_ID } from "@solana/spl-token";
 
 export default function NewAssertionPage() {
-  const { connected } = useWallet();
+  const { connected, program, publicKey } = useWallet();
+  const [loading, setLoading] = useState(false);
   const [form, setForm] = useState({
     question: "",
     answerType: "YesNo",
     liveness: "3600",
     dispute: "3600",
-    bond: "",
-    reward: "",
+    bond: "10",
+    reward: "50",
     metadata: "",
   });
 
   const set = (k: string, v: string) => setForm((f) => ({ ...f, [k]: v }));
 
-  const canSubmit = connected && form.question && form.bond && form.reward;
+  const canSubmit = connected && form.question && form.bond && form.reward && !loading;
+
+  const handleSubmit = async () => {
+    if (!program || !publicKey) return;
+
+    setLoading(true);
+    try {
+      // For this hackathon, we use a random u64 as the assertionId
+      const assertionId = new anchor.BN(Math.floor(Math.random() * 1e12));
+      const assertionPda = getAssertionPda(BigInt(assertionId.toString()), PROGRAM_ID);
+      
+      const [assertionEscrow] = PublicKey.findProgramAddressSync(
+        [Buffer.from("assertion_escrow"), assertionId.toArrayLike(Buffer, "le", 8)],
+        PROGRAM_ID
+      );
+
+      const requesterMoraAta = getAssociatedTokenAddressSync(MORA_MINT, publicKey);
+
+      const tx = await (program.rpc as any).requestAssertion(
+        assertionId,
+        form.question,
+        { [form.answerType.charAt(0).toLowerCase() + form.answerType.slice(1)]: {} },
+        new anchor.BN(form.liveness),
+        new anchor.BN(form.dispute),
+        form.metadata || null,
+        new anchor.BN(Number(form.bond) * 1e9),
+        new anchor.BN(Number(form.reward) * 1e9),
+        {
+          accounts: {
+            requester: publicKey,
+            assertionRequest: assertionPda,
+            assertionEscrow,
+            requesterMoraAta,
+            moraMint: MORA_MINT,
+            tokenProgram: TOKEN_PROGRAM_ID,
+            associatedTokenProgram: ASSOCIATED_TOKEN_PROGRAM_ID,
+            systemProgram: SystemProgram.programId,
+          },
+        }
+      );
+
+      console.log("Assertion requested! Tx:", tx);
+      alert("Assertion successfully posted on-chain!");
+      
+      // Optional: Proactively notify backend to sync faster
+      fetch('http://localhost:3001/api/indexer/sync', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id: assertionPda.toBase58(), skipSync: true }) // Hint to backend
+      }).catch(e => console.warn("Backend notification failed", e));
+
+    } catch (err: any) {
+      console.error("Submission failed:", err);
+      alert("On-chain transaction failed: " + (err.message || err));
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="page">
@@ -31,6 +93,7 @@ export default function NewAssertionPage() {
         </div>
 
         <div className="form-section">
+          {/* ... existing fields ... */}
           <div className="field">
             <label className="field-label">Question *</label>
             <textarea
@@ -40,7 +103,6 @@ export default function NewAssertionPage() {
               onChange={(e) => set("question", e.target.value)}
               style={{ minHeight: 80 }}
             />
-            <span className="field-hint">Max 500 characters. Be precise.</span>
           </div>
 
           <div className="grid-2">
@@ -54,114 +116,38 @@ export default function NewAssertionPage() {
             </div>
             <div className="field">
               <label className="field-label">Liveness Window (seconds) *</label>
-              <input
-                type="number"
-                className="input"
-                value={form.liveness}
-                onChange={(e) => set("liveness", e.target.value)}
-                min={3600}
-                max={604800}
-              />
-              <span className="field-hint">Min 1h, max 7d</span>
+              <input type="number" className="input" value={form.liveness} onChange={(e) => set("liveness", e.target.value)} />
             </div>
           </div>
 
           <div className="grid-2">
             <div className="field">
               <label className="field-label">Dispute Period (seconds) *</label>
-              <input
-                type="number"
-                className="input"
-                value={form.dispute}
-                onChange={(e) => set("dispute", e.target.value)}
-                min={3600}
-                max={604800}
-              />
+              <input type="number" className="input" value={form.dispute} onChange={(e) => set("dispute", e.target.value)} />
             </div>
-            <div className="field" />
-          </div>
-
-          <div className="divider" />
-
-          <div style={{ fontSize: 13, fontWeight: 600, color: "var(--color-text-primary)", marginBottom: 4 }}>
-            Bond & Reward
-          </div>
-          <div style={{ fontSize: 12, color: "var(--color-text-secondary)", marginBottom: 12 }}>
-            Both are locked in escrow until the assertion is resolved.
           </div>
 
           <div className="grid-2">
             <div className="field">
               <label className="field-label">Your Bond (MORA) *</label>
-              <input
-                type="number"
-                className="input"
-                placeholder="10"
-                value={form.bond}
-                onChange={(e) => set("bond", e.target.value)}
-                min={1}
-              />
-              <span className="field-hint">Refunded on resolution</span>
+              <input type="number" className="input" value={form.bond} onChange={(e) => set("bond", e.target.value)} />
             </div>
             <div className="field">
               <label className="field-label">Reward Pool (MORA) *</label>
-              <input
-                type="number"
-                className="input"
-                placeholder="50"
-                value={form.reward}
-                onChange={(e) => set("reward", e.target.value)}
-                min={1}
-              />
-              <span className="field-hint">Paid to proposer or arbiters</span>
+              <input type="number" className="input" value={form.reward} onChange={(e) => set("reward", e.target.value)} />
             </div>
           </div>
-
-          <div className="field">
-            <label className="field-label">Metadata (optional)</label>
-            <input
-              type="text"
-              className="input"
-              placeholder='e.g. "source: CoinGecko, date: 2025-04-20"'
-              value={form.metadata}
-              onChange={(e) => set("metadata", e.target.value)}
-            />
-          </div>
-
-          {/* Summary */}
-          {(form.bond || form.reward) && (
-            <div style={{
-              background: "var(--color-bg)",
-              border: "1px solid var(--color-border)",
-              borderRadius: "var(--radius-md)",
-              padding: "12px 14px",
-              fontSize: 12.5,
-              color: "var(--color-text-secondary)",
-            }}>
-              <div style={{ marginBottom: 6, fontWeight: 600, color: "var(--color-text-primary)" }}>
-                Transaction Summary
-              </div>
-              <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 4 }}>
-                <span>Total locked in escrow</span>
-                <span style={{ color: "var(--color-text-primary)", fontWeight: 500 }}>
-                  {(Number(form.bond || 0) + Number(form.reward || 0)).toFixed(2)} MORA
-                </span>
-              </div>
-              <div style={{ display: "flex", justifyContent: "space-between" }}>
-                <span>Network fee (est.)</span>
-                <span>~0.000005 SOL</span>
-              </div>
-            </div>
-          )}
 
           <button
             className="btn btn-primary btn-lg btn-full"
             disabled={!canSubmit}
+            onClick={handleSubmit}
           >
-            {!connected ? "Connect Wallet First" : "Submit Assertion →"}
+            {loading ? "Waiting for Transaction..." : !connected ? "Connect Wallet First" : "Submit Assertion →"}
           </button>
         </div>
       </div>
     </div>
   );
 }
+

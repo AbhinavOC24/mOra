@@ -1,0 +1,33 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+
+model Assertion {
+  id             String  @id // Corresponds to pubkey
+  assertionId    String @unique // The canonical u64 ID
+  requester      String
+  question       String
+  requesterBond  String
+  reward         String
+  answerType     String
+  livenessPeriod Int
+  disputePeriod  Int
+  status         String
+  requestedAt    Int
+  resolvedAt     Int?
+  proposer       String?
+  proposedAt     Int?
+  proposerBond   String?
+  disputer       String?
+  disputerBond   String?
+  proposedAnswer String?
+  finalAnswer    String?
+  metadataUrl    String?
+
+  updatedAt DateTime @updatedAt
+}

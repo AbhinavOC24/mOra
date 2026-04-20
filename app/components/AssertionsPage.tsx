@@ -1,5 +1,9 @@
 import { useState, useEffect } from "react";
 import { useWallet } from "../contexts/WalletContext";
+import { getAssertionPda, PROGRAM_ID, MORA_MINT } from "../lib/protocol";
+import * as anchor from "@coral-xyz/anchor";
+import { PublicKey } from "@solana/web3.js";
+import { TOKEN_PROGRAM_ID, getAssociatedTokenAddressSync } from "@solana/spl-token";
 
 // Status display helpers
 const STATUS_MAP: Record<string, string> = {
@@ -10,7 +14,8 @@ const STATUS_MAP: Record<string, string> = {
 };
 
 interface Assertion {
-  id: string;
+  id: string; // pubkey
+  assertionId: string; // u64 string
   question: string;
   status: string;
   answerType: string;
@@ -20,12 +25,13 @@ interface Assertion {
   livenessEndsAt: number;
 }
 
+
 interface AssertionsPageProps {
   onNewAssertion: () => void;
 }
 
 export default function AssertionsPage({ onNewAssertion }: AssertionsPageProps) {
-  const { connected } = useWallet();
+  const { connected, program, publicKey } = useWallet();
   const [filter, setFilter] = useState<"all" | "proposed" | "disputed" | "resolved">("all");
   const [selected, setSelected] = useState<string | null>(null);
   const [assertions, setAssertions] = useState<Assertion[]>([]);
@@ -45,15 +51,47 @@ export default function AssertionsPage({ onNewAssertion }: AssertionsPageProps) 
     return () => clearInterval(interval);
   }, []);
 
-  const handleResolve = (id: string) => {
-    fetch(`http://localhost:3001/api/assertions/${id}/resolve`, { method: 'POST' })
-      .then(res => res.json())
-      .then(data => {
-        if (data.success) {
-          setAssertions(prev => prev.map(a => a.id === id ? data.assertion : a));
-        }
+  const handleResolve = async (id: string, assertionId: string) => {
+    if (!program || !publicKey) return;
+
+    try {
+      const bnId = new anchor.BN(assertionId);
+      const assertionPda = getAssertionPda(BigInt(assertionId), PROGRAM_ID);
+      const [assertionEscrow] = PublicKey.findProgramAddressSync(
+        [Buffer.from("assertion_escrow"), bnId.toArrayLike(Buffer, "le", 8)],
+        PROGRAM_ID
+      );
+
+      // We need to fetch the account to get the proposer and requester
+      const account = await (program.account as any).assertionRequest.fetch(assertionPda);
+
+      const tx = await (program.rpc as any).autoResolveAssertion(bnId, {
+        accounts: {
+          assertionRequest: assertionPda,
+          assertionEscrow: assertionEscrow,
+          proposer: account.proposer,
+          requester: account.requester,
+          proposerMoraAta: getAssociatedTokenAddressSync(MORA_MINT, account.proposer),
+          requesterMoraAta: getAssociatedTokenAddressSync(MORA_MINT, account.requester),
+          moraMint: MORA_MINT,
+          tokenProgram: TOKEN_PROGRAM_ID,
+          autoResolver: publicKey,
+        },
       });
+
+      console.log("Auto-resolved! Tx:", tx);
+      alert("Assertion successfully resolved on-chain!");
+
+      // Update local state by re-fetching
+      const res = await fetch('http://localhost:3001/api/assertions');
+      const data = await res.json();
+      setAssertions(data);
+    } catch (err: any) {
+      console.error("Resolve failed:", err);
+      alert("Failed to resolve on-chain: " + (err.message || err));
+    }
   };
+
 
   const filtered = filter === "all" ? assertions : assertions.filter((a) => a.status === filter);
   const detail = selected ? assertions.find((a) => a.id === selected) : null;
@@ -174,7 +212,7 @@ export default function AssertionsPage({ onNewAssertion }: AssertionsPageProps) 
                     </>
                   ) : (
                     <>
-                      <button className="btn btn-primary" disabled={!connected} onClick={() => handleResolve(detail.id)}>Auto-Resolve (Time Passed)</button>
+                      <button className="btn btn-primary" disabled={!connected} onClick={() => handleResolve(detail.id, detail.assertionId)}>Auto-Resolve (Time Passed)</button>
                       <button className="btn btn-secondary" disabled={true} title="Liveness window closed">Dispute</button>
                     </>
                   )}
