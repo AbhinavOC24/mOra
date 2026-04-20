@@ -30,7 +30,7 @@ A user (Requester) posts a question and locks two amounts in the assertion escro
 
 ### Phase B: Proposal
 Any third party can propose an answer by staking a **Proposer Bond ($B_p$)**. 
-- **Requirement**: $B_p \geq \text{min\_proposer\_bond}$.
+- **Requirement**: $B_p \geq \text{min proposer bond}$.
 - **States**: The assertion status moves from `Requested` to `Proposed`.
 
 ### Phase C: Challenge Window (Optimistic Path)
@@ -47,7 +47,7 @@ If someone believes a proposal is incorrect, they stake a **Disputer Bond ($B_d$
 
 ### Commit-Reveal Voting
 Arbiters (veMORA holders) vote to determine the truth.
-1.  **Commit Phase**: Arbiters submit a `keccak256(side, salt)`. Their voting power ($vp$) is snapshotted at the round's start time ($t_{start}$).
+1.  **Commit Phase**: Arbiters submit a `keccak256(side, salt)`. Their voting power ($vp$) is snapshotted at the round's start time ($t_{\text{start}}$).
 2.  **Reveal Phase**: Arbiters reveal their `side` (Proposer or Disputer) and `salt`.
 
 ### Finalization & Rewards
@@ -77,7 +77,7 @@ $$vp(t) = A \cdot \frac{t_e - t}{T_{max}}$$
 To maintain accuracy with integer math, mORA uses a **scale factor of $10^{12}$**.
 
 1.  **Slope ($m$)**: The rate of decay per second.
-    $$m = \frac{A \cdot 10^{12}}{T_{max}}$$
+    $$m = \frac{A \cdot 10^{12}}{T_{\text{max}}}$$
 2.  **Bias ($b$)**: The current voting power.
     $$b(t) = \frac{m \cdot (t_e - t)}{10^{12}}$$
 
@@ -100,7 +100,7 @@ When a VLA round is finalized, the protocol redistributes the funds in the escro
 
 ### Pro-rata Arbiter Reward Formula:
 For an arbiter $i$ who voted on the winning side $S$:
-$$\text{Reward}_i = R \cdot \frac{vp_i(t_{start})}{\sum_{j \in S} vp_j(t_{start})}$$
+$$\text{Reward}_i = R \cdot \frac{vp_i(t_{\text{start}})}{\sum_{j \in S} vp_j(t_{\text{start}})}$$
 
 ---
 
