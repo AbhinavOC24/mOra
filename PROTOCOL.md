@@ -82,9 +82,9 @@ To maintain accuracy with integer math, mORA uses a **scale factor of $10^{12}$*
     $$b(t) = \frac{m \cdot (t_e - t)}{10^{12}}$$
 
 **Example**:
-- Lock 10,000 tokens for 2 years ($63,072,000$s).
+- Lock 10,000 tokens for 2 years ($63,072,000$ seconds).
 - $m = \frac{10^{13} \cdot 10^{12}}{63,072,000} \approx 158,549,000,000$.
-- After 1 year ($L = 31,536,000$s), $vp = \frac{158,549,000,000 \cdot 31,536,000}{10^{12}} \approx 5,000$ tokens.
+- After 1 year (Remaining time $L = 31,536,000$ seconds), $vp = \frac{158,549,000,000 \cdot 31,536,000}{10^{12}} \approx 5,000$ tokens.
 
 ---
 
