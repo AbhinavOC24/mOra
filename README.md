@@ -8,7 +8,7 @@
 
 **mORA** is an optimistic oracle protocol for Solana. It allows anyone to request real-world data to be brought on-chain (prices, outcomes, yes/no facts, etc.) using an optimistic model: an answer is accepted by default unless someone disputes it within a challenge window.
 
-Disputes are resolved by **veMORA holders** (value-locked arbiters), who vote to determine the canonical answer. The system is secured by economic bonds ($MORA). **Note**: The "MORA" token is configurable; the protocol can be initialized with **any custom SPL token** (e.g., USDC, SOL, or a project-specific token) to power its bonding and voting ecosystem.
+Disputes are resolved by **veMORA holders** (value-locked arbiters), who vote to determine the canonical answer. The system is secured by economic bonds ($MORA). 
 
 ---
 
